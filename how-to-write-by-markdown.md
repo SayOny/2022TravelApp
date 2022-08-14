@@ -49,12 +49,12 @@ max_total_wal_size = [15*64MB*2]*4 = 7.68GB
 ```
 
 다음은 실험 결과이다.    
-참고로 옵션을 ```./db_bench --benchmarks="fillseq" --num_column_families= --max_total_wal_size=``` 이렇게 했다.
-![r2-1](https://drive.google.com/file/d/1zxOxRxMONuz6QLngKZIZpB74fovir4lA/view?usp=sharing)
-![r2-2](https://drive.google.com/file/d/1LiBye9ubVCr5aPwKJVXzBDdoRYJzM8QF/view?usp=sharing)
-실험 시 max_total_wal_size의 범위를 너무 작게 잡으면 Too many open file이라는 코멘트와 함께 벤치마크에 실패했다. 
-내 생각에는 default값에서 어느 정도 max_total_wal_size값이 작아질수록 성능이 안좋아지는 것 같다.
-그리고 column family의 값이 커지면 성능이 안좋아지는 기준의 max_total_wal_size값이 큰 것 같다.
+참고로 옵션을 ```./db_bench --benchmarks="fillseq" --num_column_families= --max_total_wal_size=``` 이렇게 했다.   
+![r2-1](https://drive.google.com/u/1/uc?id=1zxOxRxMONuz6QLngKZIZpB74fovir4lA&export=download)   
+![r2-2](https://drive.google.com/file/d/1LiBye9ubVCr5aPwKJVXzBDdoRYJzM8QF/view?usp=sharing)   
+실험 시 max_total_wal_size의 범위를 너무 작게 잡으면 Too many open file이라는 코멘트와 함께 벤치마크에 실패했다.   
+내 생각에는 default값에서 어느 정도 max_total_wal_size값이 작아질수록 성능이 안좋아지는 것 같다.   
+그리고 column family의 값이 커지면 성능이 안좋아지는 기준의 max_total_wal_size값이 큰 것 같다.   
 
 
 
