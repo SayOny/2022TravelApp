@@ -22,10 +22,10 @@ Dependent Variable: SAF, WAF, Latency, Throughput
 
 
 ### Experiment Enviornment   
-*Server Spec* 
-  -OS: macOS Monterey   
-  -Processor: 2.3GHz 8Core Intel Core i9   
-  -SSD: APPLE SSD AP1024N 1TB   
+*Server Spec*     
+    -OS: macOS Monterey   
+    -Processor: 2.3GHz 8Core Intel Core i9   
+    -SSD: APPLE SSD AP1024N 1TB   
 
 
 ### Result    
