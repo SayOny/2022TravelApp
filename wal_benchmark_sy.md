@@ -55,8 +55,8 @@ max_total_wal_size = [15*64MB*2]*4 = 7.68GB
 다음은 실험 결과이다.    
 참고로 옵션을 ```./db_bench --benchmarks="fillseq" --num_column_families= --max_total_wal_size=``` 이렇게 했다.   
    
-![r2-1](https://drive.google.com/u/1/uc?id=1zxOxRxMONuz6QLngKZIZpB74fovir4lA&export=download)   
-![r2-2](https://drive.google.com/u/1/uc?id=1LiBye9ubVCr5aPwKJVXzBDdoRYJzM8QF&export=download)   
+![r2-1](https://drive.google.com/u/1/uc?id=1TLp8_9TqoELmEilbImaxPKwBFWTQHRAF&export=download)   
+![r2-2](https://drive.google.com/u/1/uc?id=1Pcu91FwX1fdXh_-s9kArDSE83M9OPfkO&export=download)   
    
 사실 이건 default column family를 분석한 결과만 반영된 것 같다.   
 하지만 ```--num_column_families=``` 옵션을 주지 않았을 때와 결과가 다르기 때문에 10개, 15개의 패밀리가 모두 사용된 것 같다.   
