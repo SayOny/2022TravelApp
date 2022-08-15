@@ -18,7 +18,8 @@ Dependent Variable: SAF, WAF, Latency, Throughput
 ./db_bench --benchmarks="fillseq" --max_total_wal_size=[0,1,10,100,1000,10000,100000,1000000,10000000, 100000000] --num=10000000   
 
 ### Experiment Enviornment   
-```*Server Spec   
+```
+*Server Spec   
   *OS: macOS Monterey   
   *Processor: 2.3GHz 8Core Intel Core i9   
   *SSD: APPLE SSD AP1024N 1TB   
