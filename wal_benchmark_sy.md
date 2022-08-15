@@ -3,6 +3,7 @@
 ## Option - Max_total_wal_size   
 
 ### Hypothesis   
+
 column family들은 각각의 ssTable을 갖지만 WAL은 공유한다.   
 하나의 column family가 flush 될 때마다 새 WAL이 생성된다.    
 그리고 모든 column families에 대한 쓰기는 새 WAL로 이동한다.    
@@ -12,18 +13,20 @@ column family들은 각각의 ssTable을 갖지만 WAL은 공유한다.
 그런데 wal의 size를 작게하면 자주 flush가 일어나서 성능이 안좋아질까?     
 
 ### Design   
+```   
 Independent Variable: --max_total_wal_size=[int value]   
 Dependent Variable: SAF, WAF, Latency, Throughput   
 
 ./db_bench --benchmarks="fillseq" --max_total_wal_size=[0,1,10,100,1000,10000,100000,1000000,10000000, 100000000] --num=10000000   
+```   
+
 
 ### Experiment Enviornment   
-```
-*Server Spec   
-  *OS: macOS Monterey   
-  *Processor: 2.3GHz 8Core Intel Core i9   
-  *SSD: APPLE SSD AP1024N 1TB   
-```
+*Server Spec* 
+  -OS: macOS Monterey   
+  -Processor: 2.3GHz 8Core Intel Core i9   
+  -SSD: APPLE SSD AP1024N 1TB   
+
 
 ### Result    
 ![r1-1](https://drive.google.com/u/1/uc?id=1PYd69aCFcH0GaBVUIAKNit_4TPkdfqqI&export=download)   
