@@ -11,7 +11,7 @@ column family들은 각각의 ssTable을 갖지만 WAL은 공유한다.
 만약 wal size의 제약이 없다면 wal이 삭제되는 속도가 느려지고 flush가 자주 일어나지 않을 것이다.    
 그래서 max_total_wal_size 옵션을 사용하여 해당 옵션의 값만큼 크기를 초과하면 trigger되어 가장 오래된 라이브 WAL 파일을 삭제하는데, 만약 라이브 데이터가 있다면 강제로 flush한다.     
 그런데 wal의 size를 작게하면 자주 flush가 일어나서 성능이 안좋아질까?     
-
+   
 ### Design   
 ```   
 Independent Variable: --max_total_wal_size=[int value]   
