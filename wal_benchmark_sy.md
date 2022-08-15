@@ -3,9 +3,12 @@
 ## Option - Max_total_wal_size   
 
 ### Hypothesis   
+column family들은 각각의 ssTable을 갖지만 WAL은 공유한다.
+하나의 column family가 flush 될 때마다 새 WAL이 생성된다. 그리고 모든 column families에 대한 쓰기는 새 WAL로 이동한다.   
+한편 WAL의 모든 데이터가 ssTable로 들어가야만 WAL이 삭제될 수 있으므로 정기적으로 flush 되도록 해야한다.
 만약 wal size의 제약이 없다면 wal이 삭제되는 속도가 느려지고 flush가 자주 일어나지 않을 것이다.   
-max_total_wal_size 옵션을 사용하면 trigger되는 크기를 지정해줄 수 있다.    
-그러면 wal의 size를 너무 작게했을 때 많은 flush가 일어나서 성능이 안좋아질까?   
+그래서 max_total_wal_size 옵션을 사용하는데, 해당 옵션의 값만큼 크기를 초과하면 trigger되어 가장 오래된 라이브 WAL 파일을 삭제하는데, 만약 라이브 데이터가 있다면 강제로 flush한다.    
+그런데 wal의 size를 작게하면 자주 flush가 일어나서 성능이 안좋아질까?   
 
 ### Design   
 Independent Variable: --max_total_wal_size=[int value]   
@@ -38,13 +41,13 @@ Dependent Variable: SAF, WAF, Latency, Throughput
 ```
 10개의 column families,   
 write_buffer_size = 64 MB(Default),   
-max_write_buffer_number = 2(Default)   
+max_write_buffer_number = 2(Default),   
 max_total_wal_size = [10*64MB*2]*4 = 5.12GB   
 ```
 ```
 15개의 column families,   
 write_buffer_size = 64 MB(Default),   
-max_write_buffer_number = 2(Default)   
+max_write_buffer_number = 2(Default),   
 max_total_wal_size = [15*64MB*2]*4 = 7.68GB   
 ```
 
@@ -52,9 +55,11 @@ max_total_wal_size = [15*64MB*2]*4 = 7.68GB
 참고로 옵션을 ```./db_bench --benchmarks="fillseq" --num_column_families= --max_total_wal_size=``` 이렇게 했다.   
 ![r2-1](https://drive.google.com/u/1/uc?id=1zxOxRxMONuz6QLngKZIZpB74fovir4lA&export=download)   
 ![r2-2](https://drive.google.com/u/1/uc?id=1LiBye9ubVCr5aPwKJVXzBDdoRYJzM8QF&export=download)   
+   
+사실 이건 default column family를 분석한 결과일 것이다.
 실험 시 max_total_wal_size의 범위를 너무 작게 잡으면 Too many open file이라는 코멘트와 함께 벤치마크에 실패했다.   
-내 생각에는 default값에서 어느 정도 max_total_wal_size값이 작아질수록 성능이 안좋아지는 것 같다.   
-그리고 column family의 값이 커지면 성능이 안좋아지는 기준의 max_total_wal_size값이 큰 것 같다.   
+내 생각에는 default의 max_total_wal_size값에서 어느 정도 max_total_wal_size값이 작아질수록 성능이 안좋아지는 것 같다.   
+그리고 물론 column family의 개수가 많아지면 성능이 안좋아질 것이고 또한 성능이 안좋아지는 기준의 max_total_wal_size 값이 커지는 것 같다.   
 
 
 
