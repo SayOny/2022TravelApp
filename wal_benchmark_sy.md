@@ -64,9 +64,16 @@ max_total_wal_size = [15*64MB*2]*4 = 7.68GB
 max_total_wal_size의 범위를 특이하게 잡았는데,   
 실험 시 범위를 너무 작게 잡으면 ```Too many open file```이라는 코멘트와 함께 벤치마크에 실패했다.   
 또한 default값보다 커졌을 때의 변화도 궁금해서 1000GB까지 늘려봤는데 잘 모르겠다.  
-    
+   
+### Result     
+   
 내 생각에는 default의 max_total_wal_size값에서 어느 정도 max_total_wal_size값이 작아질수록 성능이 안좋아지는 것 같다.   
-그리고 물론 column family의 개수가 많아지면 성능이 안좋아질 것이고 또한 성능이 안좋아지는 max_total_wal_size 값의 기준도 커지는 것 같다.   
+
+또한 max_total_wal_size를 500MB로 고정하고 coulumn falimy의 개수를 10, 15, 20, 25, 30으로 테스트 해봤는데       
+column family의 개수가 많아지면 wal을 공유하는데 있어 성능이 안좋아지는 것 같고    
+성능이 안좋아지는 max_total_wal_size 값의 기준도 커지는 것 같다.   
+   
+기회가 된다면 여러 column family를 직접 세팅하고(각 column family의 특성을 바꿔서 다양한 변수를 가지고 실험할 수 있도록) 플러시의 횟수를 확인하는 등 좀 더 자세한 benchmarking을 시도해보고 싶다.   
 
 
 
