@@ -18,7 +18,7 @@ Dependent Variable: SAF, WAF, Latency, Throughput
 ./db_bench --benchmarks="fillseq" --max_total_wal_size=[0,1,10,100,1000,10000,100000,1000000,10000000, 100000000] --num=10000000   
 
 ### Experiment Enviornment   
-*Server Spec   
+Server Spec   
   *OS: macOS Monterey   
   *Processor: 2.3GHz 8Core Intel Core i9   
   *SSD: APPLE SSD AP1024N 1TB   
@@ -57,10 +57,13 @@ max_total_wal_size = [15*64MB*2]*4 = 7.68GB
 ![r2-1](https://drive.google.com/u/1/uc?id=1zxOxRxMONuz6QLngKZIZpB74fovir4lA&export=download)   
 ![r2-2](https://drive.google.com/u/1/uc?id=1LiBye9ubVCr5aPwKJVXzBDdoRYJzM8QF&export=download)   
    
-사실 이건 default column family를 분석한 결과일 것이다.
-실험 시 max_total_wal_size의 범위를 너무 작게 잡으면 Too many open file이라는 코멘트와 함께 벤치마크에 실패했다.   
+사실 이건 default column family를 분석한 결과만 반영된 것 같다.   
+하지만 ```--num_column_families=``` 옵션을 주지 않았을 때와 결과가 다르기 때문에 10개, 15개의 패밀리가 모두 사용된 것 같다.
+max_total_wal_size의 범위를 좀 특이하게 잡았는데,   
+실험 시 범위를 너무 작게 잡으면 ```Too many open file```이라는 코멘트와 함께 벤치마크에 실패했다.   
+또한 default값보다 커졌을 때의 변화도 궁금해서 1000GB까지 늘려봤는데 잘 모르겠다.   
 내 생각에는 default의 max_total_wal_size값에서 어느 정도 max_total_wal_size값이 작아질수록 성능이 안좋아지는 것 같다.   
-그리고 물론 column family의 개수가 많아지면 성능이 안좋아질 것이고 또한 성능이 안좋아지는 기준의 max_total_wal_size 값이 커지는 것 같다.   
+그리고 물론 column family의 개수가 많아지면 성능이 안좋아질 것이고 또한 성능이 안좋아지는 max_total_wal_size 값의 기준도 커지는 것 같다.   
 
 
 
