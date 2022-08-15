@@ -3,12 +3,13 @@
 ## Option - Max_total_wal_size   
 
 ### Hypothesis   
-column family들은 각각의 ssTable을 갖지만 WAL은 공유한다.
-하나의 column family가 flush 될 때마다 새 WAL이 생성된다. 그리고 모든 column families에 대한 쓰기는 새 WAL로 이동한다.   
-한편 WAL의 모든 데이터가 ssTable로 들어가야만 WAL이 삭제될 수 있으므로 정기적으로 flush 되도록 해야한다.
-만약 wal size의 제약이 없다면 wal이 삭제되는 속도가 느려지고 flush가 자주 일어나지 않을 것이다.   
-그래서 max_total_wal_size 옵션을 사용하는데, 해당 옵션의 값만큼 크기를 초과하면 trigger되어 가장 오래된 라이브 WAL 파일을 삭제하는데, 만약 라이브 데이터가 있다면 강제로 flush한다.    
-그런데 wal의 size를 작게하면 자주 flush가 일어나서 성능이 안좋아질까?   
+column family들은 각각의 ssTable을 갖지만 WAL은 공유한다.   
+하나의 column family가 flush 될 때마다 새 WAL이 생성된다.    
+그리고 모든 column families에 대한 쓰기는 새 WAL로 이동한다.    
+한편 WAL의 모든 데이터가 ssTable로 들어가야만 WAL이 삭제될 수 있으므로 정기적으로 flush 되도록 해야한다.   
+만약 wal size의 제약이 없다면 wal이 삭제되는 속도가 느려지고 flush가 자주 일어나지 않을 것이다.    
+그래서 max_total_wal_size 옵션을 사용하는데, 해당 옵션의 값만큼 크기를 초과하면 trigger되어 가장 오래된 라이브 WAL 파일을 삭제하는데, 만약 라이브 데이터가 있다면 강제로 flush한다.     
+그런데 wal의 size를 작게하면 자주 flush가 일어나서 성능이 안좋아질까?     
 
 ### Design   
 Independent Variable: --max_total_wal_size=[int value]   
